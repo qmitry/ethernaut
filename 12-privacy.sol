@@ -8,7 +8,7 @@ contract Privacy {
   uint8 private flattening = 10; // slot 2
   uint8 private denomination = 255; // slot 2
   uint16 private awkwardness = uint16(block.timestamp); // slot 2
-  bytes32[3] private data; // slot 3-6
+  bytes32[3] private data; // slot 3-5
 
   constructor(bytes32[3] memory _data) {
     data = _data;
