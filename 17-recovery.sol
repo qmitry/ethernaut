@@ -35,3 +35,6 @@ contract SimpleToken {
         selfdestruct(_to);
     }
 }
+
+// check new contract address on the etherscan
+// call destroy(my_address)
